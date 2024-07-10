@@ -148,3 +148,12 @@ def upload(request):
             i.save()
 
     return render(request, "musicbeats/upload.htm")
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        results = Song.objects.filter(name__icontains=query)  # Example search by song name
+    else:
+        results = []
+
+    return render(request, 'musicbeats/search_results.htm', {'results': results, 'query': query})
